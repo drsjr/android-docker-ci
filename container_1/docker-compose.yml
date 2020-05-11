@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  android-docker-jenkins:
+    image: android-docker-jenkins
+    build: .
+    ports:
+      - 80

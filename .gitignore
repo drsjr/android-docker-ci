@@ -1,4 +1,6 @@
 *.pub
 *.zip
 
-jenkins/jenkins_home
+jenkins/jenkins_home/
+gradle-server/distributions/
+android-sdk-image/gradle/

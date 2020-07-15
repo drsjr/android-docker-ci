@@ -21,6 +21,7 @@ RUN mkdir -p ${ANDROID_HOME} && cd ${ANDROID_HOME} && \
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/tools/bin
 ENV LD_LIBRARY_PATH ${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib
 
+ADD apache.crt /home/
 ADD licenses_accepter.sh /opt/
 RUN chmod +x /opt/licenses_accepter.sh && /opt/licenses_accepter.sh ${ANDROID_HOME}
 
@@ -45,8 +46,11 @@ RUN apt-get update -y && \
     do if [ -f "$file" ]; then echo "\n" >> $FILE_AUTH_KEYS && cat $file >> $FILE_AUTH_KEYS && echo "\n" >> $FILE_AUTH_KEYS; fi; \
     done && \
     (rm /tmp/*.pub 2> /dev/null || true)
+    
 
 ADD supervisord.conf /etc/supervisor/conf.d/
+
+RUN $JAVA_HOME/bin/keytool -import -trustcacerts -file /home/apache.crt -keystore $JAVA_HOME/jre/lib/security/cacerts -storepass changeit -noprompt
 CMD ["/usr/bin/supervisord"]
 
 # setup adb server

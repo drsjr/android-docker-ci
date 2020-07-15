@@ -1,6 +1,9 @@
 *.pub
 *.zip
+*.crt
+
 
 jenkins/jenkins_home/
 gradle-server/distributions/
 android-sdk-image/gradle/
+android-sdk-image/sdk/
